@@ -1,6 +1,6 @@
 name: package_a
 description: A starting point for Dart libraries or applications.
-version: 1.0.0
+version: 1.0.1
 # repository: https://github.com/my_org/my_repo
 
 environment:
@@ -8,7 +8,7 @@ environment:
 
 # Add regular dependencies here.
 dependencies:
-  package_c: any
+  package_c: ^1.0.1
 
 dev_dependencies:
   lints: ^2.1.0
