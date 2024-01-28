@@ -1,18 +1,12 @@
-[![Pub Version](https://img.shields.io/pub/v/melos_workspace_cleaner)](https://pub.dev/packages/melos_workspace_cleaner)
-[![Pub Likes](https://badgen.net/pub/likes/melos_workspace_cleaner)](https://pub.dev/packages/melos_workspace_cleaner)
-[![Pub Points](https://badgen.net/pub/points/melos_workspace_cleaner)](https://pub.dev/packages/melos_workspace_cleaner)
-[![Pub Popularity](https://badgen.net/pub/popularity/melos_workspace_cleaner)](https://pub.dev/packages/melos_workspace_cleaner/score)
-[![GitHub stars](https://badgen.net/github/stars/Workiva/melos_workspace_cleaner)](https://pub.dev/packages/melos_workspace_cleaner/)
+![alt text](assets/workspace_cleaner.png "Resoure")
 
 # Melos Workspace Cleaner
 
----
-
-Melos Workspace Cleaner is a tool designed for cleaning monorepo workspaces built on the [Melos](https://melos.invertase.dev/~melos-latest). 
-This tool provides an straightforward solution for maintaining and managing your monorepo project, 
+Melos Workspace Cleaner is a tool designed for cleaning monorepo workspaces built on the [Melos](https://melos.invertase.dev/~melos-latest).
+This tool provides an straightforward solution for maintaining and managing your monorepo project,
 especially when dealing with an extensive codebase or a multi-project environment.
 
-Optimize your development process and enhance code management with 
+Optimize your development process and enhance code management with
 this workspace cleaning tool, when you switching between branches.
 
 ## Features
@@ -21,10 +15,12 @@ this workspace cleaning tool, when you switching between branches.
 - [X] Integration option using Melos Hooks
 - [X] Simplification of dependency_overrides removal process
 
-## Getting started
+## 🚀  Getting started
+
+### Installation
 
 ```bash
-dart pub global activate melos_workspace_cleaner
+dart pub global activate mwc
 ```
 
 ## Usage
@@ -43,8 +39,3 @@ command:
   
 ```
 
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.

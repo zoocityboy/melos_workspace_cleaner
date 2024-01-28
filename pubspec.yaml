@@ -1,11 +1,16 @@
 name: melos_workspace_cleaner
 description: >
   Helper tool to clean up melos workspace.
-version: 1.0.0
+version: 0.1.0
 homepage: https://github.com/zoocityboy/melos_workspace_cleaner
 repository: https://github.com/zoocityboy/melos_workspace_cleaner
 issue_tracker: https://github.com/zoocityboy/melos_workspace_cleaner/issues
 topics: [melos, dart, monorepo, workspace, cleaner]
+screenshots:
+  - description: Workspace Cleaner
+    path: assets/workspace_cleaner.png
+  - description: Workspace Cleaner icon
+    path: assets/workspace_icon.png
 
 environment:
   sdk: ^3.0.0

@@ -1,4 +1,4 @@
-name: melos_workspace_cleaner_workspace
+name: mwc_example_workspace
 environment:
   sdk: ">=2.12.0 <4.0.0"
 
