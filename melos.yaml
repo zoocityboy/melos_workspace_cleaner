@@ -4,11 +4,23 @@ ide:
   intellij: false
 packages:
   - "."
-  - example
+  - example/**
 command:
   bootstrap:
     hooks:
-      post: melos run format
+      post: |
+        melos run format
   version:
+    workspaceChangelog: true
+    branch: main
     message: |
       chore: cut package releases 🎉
+scripts:
+  postclean: >
+    melos exec -c 1 -- "flutter pub get"
+  format:
+    description: |
+      Run `dart format` in all packages.
+    run: |
+      melos exec -c 1 -- \
+        "dart format ."
