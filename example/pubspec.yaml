@@ -1,0 +1,9 @@
+name: mwc_example_workspace
+environment:
+  sdk: ">=2.12.0 <4.0.0"
+
+dependencies:
+  meta: ^1.3.0
+
+dev_dependencies:
+  melos: any
