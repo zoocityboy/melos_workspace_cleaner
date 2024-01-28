@@ -1,5 +1,4 @@
-import 'package:melos_workspace_cleaner/mwc.dart';
-import 'package:melos_workspace_cleaner/src/mwc_config.dart';
+import 'package:mwc/mwc.dart';
 
 Future<void> main(List<String> arguments) async {
   final config = MwcConfig();
