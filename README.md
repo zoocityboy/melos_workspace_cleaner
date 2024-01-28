@@ -1,4 +1,4 @@
-![alt text](assets/workspace_cleaner.png "Resoure")
+![alt text](https://raw.githubusercontent.com/zoocityboy/melos_workspace_cleaner/main/assets/workspace_cleaner.png "Resoure")
 
 # Melos Workspace Cleaner
 

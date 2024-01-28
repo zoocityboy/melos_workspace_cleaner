@@ -2,8 +2,9 @@ name: Create Release
 
 on:
   push:
-    branches:
-      - main  # Trigger this workflow on push to main branch
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - 'v*'
 
 jobs:
   release:
@@ -20,5 +21,9 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
+          body: |
+            Changes in this Release
+            - First Change
+            - Second Change
           draft: false
           prerelease: false
