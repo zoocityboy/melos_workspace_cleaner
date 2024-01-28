@@ -1,0 +1,20 @@
+name: MelosCleanerWorkspace
+repository: https://github.com/zoocityboy/melos_workspace_cleaner
+
+packages:
+  - packages/**
+ide:
+  intellij: false
+command:
+  version:
+    linkToCommits: true
+    workspaceChangelog: true
+
+  bootstrap:
+    runPubGetInParallel: false
+  clean:
+    hooks:
+      pre: melosc
+scripts:
+  postclean:
+    run: melosc
