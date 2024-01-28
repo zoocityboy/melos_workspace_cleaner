@@ -1,0 +1,14 @@
+name: melos_workspace
+repository: https://github.com/zoocityboy/melos_workspace_cleaner
+ide:
+  intellij: false
+packages:
+  - "."
+  - example
+command:
+  bootstrap:
+    hooks:
+      post: melos run format
+  version:
+    message: |
+      chore: cut package releases 🎉
