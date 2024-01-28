@@ -4,3 +4,4 @@
 library;
 
 export 'src/mwc.dart';
+export 'src/mwc_config.dart';

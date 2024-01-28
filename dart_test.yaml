@@ -1,0 +1,28 @@
+# This package's tests are very slow. Double the default timeout.
+timeout: 1x
+concurrency: 4
+tags:
+  integration: { timeout: 2x }
+  undebugable: {}
+  ui: {}
+  logic: {}
+  domain: {}
+  unit: {}
+  basicFlow: { timeout: 2x }
+
+  chrome: { add_tags: [browser] }
+  firefox: { add_tags: [browser] }
+  safari: { add_tags: [browser] }
+  ie: { add_tags: [browser] }
+
+fold_stack_frames:
+  except:
+    - test
+    - stream_channel
+
+debug:
+  run_skipped: true
+  paths: ["test/"]
+
+file_reporters:
+  json: reports/tests.json
