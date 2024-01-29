@@ -1,3 +1,4 @@
 example/
-melos.yaml
 .gitignore
+melos.yaml
+pubspec_overrides.yaml

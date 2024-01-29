@@ -2,6 +2,7 @@ name: mwc_example_workspace
 repository: https://github.com/zoocityboy/melos_workspace_cleaner
 
 packages:
+  - "."
   - packages/**
 ide:
   intellij: false
