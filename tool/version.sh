@@ -7,5 +7,4 @@ cat > lib/src/mwc.g.dart <<EOF
 part of 'mwc.dart';
 
 const packageVersion = '$version';
-
 EOF
