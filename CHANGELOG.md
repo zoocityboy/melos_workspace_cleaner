@@ -1,3 +1,7 @@
+## 0.1.5
+
+ - **FEAT**: version. ([5da694d2](https://github.com/zoocityboy/melos_workspace_cleaner/commit/5da694d27f57aeb8e498310e4985d5dde1625bf7))
+
 ## 0.1.4
 
  - **FEAT**: zoo_lints. ([e06c9f86](https://github.com/zoocityboy/melos_workspace_cleaner/commit/e06c9f863b43d0366bee32049c0a1d3faff78bea))
