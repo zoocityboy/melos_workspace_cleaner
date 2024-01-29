@@ -33,7 +33,14 @@ dart pub global activate mwc
 
 ```bash
 # run command from terminal in root of the project
-mwc
+mwc -h
+
+Melos Workspace Cleaner
+
+Usage: mwc [options]
+-h, --help        Print this usage information.
+    --version     Print the current version.
+-p, --patterns    Patterns to be deleted.
 ```
 
 ```yaml
