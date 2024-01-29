@@ -20,7 +20,7 @@ command:
     branch: main
     message: "chore: cut package releases 🎉"
     hooks:
-      post: |
+      preCommit: |
         melos run gen:version
 
 scripts:
