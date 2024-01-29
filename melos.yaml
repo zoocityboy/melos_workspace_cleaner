@@ -25,6 +25,14 @@ scripts:
     run: |
       melos exec -c 1 -- \
         "dart format --set-exit-if-changed lib"
+  pana:
+    description: |
+      Run `dart analyze` in all packages.
+    run: |
+      dart pub global activate pana
+      pana -j > reports/pana.json
+    packageFilters:
+      scope: "mwc"
   ci:analyze:
     description: |
       Run `dart analyze` in all packages.

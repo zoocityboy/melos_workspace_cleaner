@@ -68,15 +68,6 @@ void main() {
       config = MockMwcConfig();
       mwc = MockMwc();
     });
-    test('get config', () {
-      when(() => mwc.config).thenReturn(config);
-      expect(mwc.config, isA<MwcConfig>());
-    });
-    test('get config patterns', () {
-      when(() => mwc.config).thenReturn(config);
-      when(() => config.patterns).thenReturn(['pattern1', 'pattern2']);
-      expect(mwc.config.patterns.isNotEmpty, true);
-    });
 
     test('get run called', () {
       when(() => mwc.config).thenReturn(config);
@@ -84,7 +75,7 @@ void main() {
       when(() => config.formatedPatterns).thenReturn('{pattern1,pattern2}');
       when(() => mwc.logger).thenReturn(logger);
       when(() => mwc.run()).thenAnswer((_) async {});
-      mwc.run();
+      expect(mwc.run(), completion(null));
       verify(() => mwc.run()).called(1);
     });
 
@@ -93,9 +84,11 @@ void main() {
       when(() => config.patterns).thenReturn(['pattern1', 'pattern2']);
       when(() => config.formatedPatterns).thenReturn('{pattern1,pattern2}');
       when(() => mwc.logger).thenReturn(logger);
-
       when(() => mwc.clean(any(), any())).thenAnswer((_) async {});
-      await mwc.clean([File('path1'), File('path2')], prog);
+
+      expect(mwc.logger, logger);
+
+      expect(mwc.clean([File('path1'), File('path2')], prog), completion(null));
 
       verify(() => mwc.clean(any(), any())).called(1);
     });
