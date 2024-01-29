@@ -26,3 +26,4 @@ debug:
 
 file_reporters:
   json: reports/tests.json
+  github: reports/tests.md

@@ -1,10 +1,11 @@
 name: package_c
 description: A starting point for Dart libraries or applications.
 version: 1.0.1
+publish_to: none
 # repository: https://github.com/my_org/my_repo
 
 environment:
-  sdk: ^3.2.5
+  sdk: ^2.19.0
 
 # Add regular dependencies here.
 dependencies:

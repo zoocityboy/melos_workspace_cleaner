@@ -12,9 +12,19 @@ command:
 
   bootstrap:
     runPubGetInParallel: false
+    dev_dependencies:
+      test: ^1.24.0
   clean:
     hooks:
-      pre: melosc
+      pre: mwc
 scripts:
   postclean:
-    run: melosc
+    run: mwc
+  ci:analyze:
+    description: |
+      Run `dart analyze` in all packages.
+    exec: dart analyze --fatal-infos --fatal-warnings .
+  ci:test:
+    description: |
+      Run `dart test` in all packages.
+    exec: dart test

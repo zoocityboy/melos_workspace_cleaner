@@ -1,6 +1,12 @@
+import 'dart:io';
+
 import 'package:glob/glob.dart';
+import 'package:mason_logger/mason_logger.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:mwc/mwc.dart';
 import 'package:test/test.dart';
+
+import 'mock.dart';
 
 void main() {
   group('MwcConfig', () {
@@ -47,6 +53,44 @@ void main() {
     test('should return a Glob object', () {
       final config = MwcConfig(patterns: []);
       expect(() => config.glob, throwsA(isA<Exception>()));
+    });
+  });
+
+  group('Mwc', () {
+    late final MwcConfig config;
+    late final Mwc mwc;
+    late final Logger logger;
+    late final Progress prog;
+    setUpAll(() {
+      registerFallbackValue(MockProgress());
+      prog = MockProgress();
+      logger = MockLogger();
+      config = MockMwcConfig();
+      mwc = MockMwc();
+    });
+
+    test('get run called', () {
+      when(() => mwc.config).thenReturn(config);
+      when(() => config.patterns).thenReturn(['pattern1', 'pattern2']);
+      when(() => config.formatedPatterns).thenReturn('{pattern1,pattern2}');
+      when(() => mwc.logger).thenReturn(logger);
+      when(() => mwc.run()).thenAnswer((_) async {});
+      expect(mwc.run(), completion(null));
+      verify(() => mwc.run()).called(1);
+    });
+
+    test('get clean called', () async {
+      when(() => mwc.config).thenReturn(config);
+      when(() => config.patterns).thenReturn(['pattern1', 'pattern2']);
+      when(() => config.formatedPatterns).thenReturn('{pattern1,pattern2}');
+      when(() => mwc.logger).thenReturn(logger);
+      when(() => mwc.clean(any(), any())).thenAnswer((_) async {});
+
+      expect(mwc.logger, logger);
+
+      expect(mwc.clean([File('path1'), File('path2')], prog), completion(null));
+
+      verify(() => mwc.clean(any(), any())).called(1);
     });
   });
 }
