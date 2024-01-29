@@ -1,3 +1,9 @@
+## 0.1.3
+
+ - **FEAT**: ! prepare for release. ([dc5cebf0](https://github.com/zoocityboy/melos_workspace_cleaner/commit/dc5cebf0d91dd6a08f242bc09301d5d54ae935e1))
+ - **FEAT**: add new features. ([21e0cc83](https://github.com/zoocityboy/melos_workspace_cleaner/commit/21e0cc8329adeaa3b1c653cab9a60c4a3643e294))
+ - **DOCS**: update readme.md. ([f0a79f8d](https://github.com/zoocityboy/melos_workspace_cleaner/commit/f0a79f8de80a6dce2fa4398d5b4e7a1044adea6c))
+
 ## 0.1.2+1
 
  - **DOCS**: update. ([763b941e](https://github.com/zoocityboy/melos_workspace_cleaner/commit/763b941e0af5787177a5f81ec27c88f63ad0e6f6))
