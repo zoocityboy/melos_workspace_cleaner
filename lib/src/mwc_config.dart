@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:glob/glob.dart';
-import 'package:meta/meta.dart';
 import 'package:yaml/yaml.dart';
 
 /// Represents the configuration for Melos.
@@ -20,8 +19,7 @@ class MwcConfig {
   });
 
   /// Creates a new instance of [MwcConfig] for testing purposes.
-  @visibleForTesting
-  factory MwcConfig.dartTest({List<String>? patterns}) {
+  factory MwcConfig.manual({List<String>? patterns}) {
     return MwcConfig._(patterns: patterns ?? defaultPatterns);
   }
 
@@ -60,6 +58,7 @@ class MwcConfig {
     } else {
       pattern = patterns.first;
     }
+    stdout.writeln('Cleaning files matching $pattern');
     return pattern;
   }
 
@@ -73,7 +72,16 @@ class MwcConfig {
   /// Returns a list of patterns from a `mwc.yaml` file.
   static List<String>? parseYamlConfig(File yaml) {
     if (!yaml.existsSync()) return null;
-    final node = loadYaml(yaml.readAsStringSync())['mwc'] as YamlList?;
+    // ignore: avoid_dynamic_calls
+    final yamlContent = loadYaml(yaml.readAsStringSync());
+    if (yamlContent is! YamlMap) {
+      throw Exception('Melos Workspace Cleaner, invalid yaml format.');
+    }
+    final node = yamlContent['mwc'];
+    if (node is! YamlList?) {
+      throw Exception('Melos Workspace Cleaner, invalid yaml list format.');
+    }
+
     if (node != null) {
       return List<String>.from(node.value);
     }

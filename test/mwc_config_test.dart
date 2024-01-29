@@ -11,7 +11,7 @@ import 'mock.dart';
 void main() {
   group('MwcConfig', () {
     test('should create a new instance with default patterns', () {
-      final config = MwcConfig.dartTest();
+      final config = MwcConfig.manual();
       expect(config.patterns, ['**/pubspec_overrides.yaml', '**/pubspec.lock']);
     });
   });
@@ -19,26 +19,26 @@ void main() {
   group('MwcConfig format', () {
     test('should create a new instance with custom patterns', () {
       final customPatterns = ['pattern1', 'pattern2'];
-      final config = MwcConfig.dartTest(patterns: customPatterns);
+      final config = MwcConfig.manual(patterns: customPatterns);
       expect(config.patterns, customPatterns);
     });
 
     test('should return exception if patterns isEmpty', () {
       final customPatterns = <String>[];
-      final config = MwcConfig.dartTest(patterns: customPatterns);
+      final config = MwcConfig.manual(patterns: customPatterns);
       expect(() => config.formatedPatterns, throwsA(isA<Exception>()));
     });
 
     test('should formated patterns', () {
       final customPatterns = <String>['pattern1', 'pattern2'];
-      final config = MwcConfig.dartTest(patterns: customPatterns);
+      final config = MwcConfig.manual(patterns: customPatterns);
       expect(config.formatedPatterns, isA<String>());
       expect(config.formatedPatterns, '{pattern1,pattern2}');
     });
 
     test('should formated patterns', () {
       final customPatterns = <String>['pattern1'];
-      final config = MwcConfig.dartTest(patterns: customPatterns);
+      final config = MwcConfig.manual(patterns: customPatterns);
       expect(config.formatedPatterns, isA<String>());
       expect(config.formatedPatterns, 'pattern1');
     });
@@ -46,12 +46,12 @@ void main() {
 
   group('MwcConfig glob', () {
     test('should return a Glob object', () {
-      final config = MwcConfig.dartTest();
+      final config = MwcConfig.manual();
       expect(config.glob, isA<Glob>());
     });
 
     test('should return a Glob object', () {
-      final config = MwcConfig.dartTest(patterns: []);
+      final config = MwcConfig.manual(patterns: []);
       expect(() => config.glob, throwsA(isA<Exception>()));
     });
   });
