@@ -19,6 +19,9 @@ command:
     workspaceChangelog: false
     branch: main
     message: "chore: cut package releases 🎉"
+    hooks:
+      post: |
+        melos run gen:version
 
 scripts:
   gen:version:
