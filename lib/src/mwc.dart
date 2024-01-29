@@ -5,9 +5,10 @@ import 'package:args/args.dart';
 import 'package:cli_launcher/cli_launcher.dart';
 import 'package:glob/list_local_fs.dart';
 import 'package:mason_logger/mason_logger.dart';
-import 'package:mwc/src/mwc_config.dart';
-
 import 'package:pub_updater/pub_updater.dart';
+
+import 'mwc_config.dart';
+
 part 'mwc.g.dart';
 
 /// A class that represents the MWC (Melos Workspace Cleaner) command.

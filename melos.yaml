@@ -10,11 +10,16 @@ command:
     hooks:
       post: |
         melos run format
+    dev_dependencies:
+      melos: ^4.0.0
+      mocktail: ^1.0.3
+      test: ^1.24.0
+      zoo_lints: ^3.1.0+1
   version:
     workspaceChangelog: false
     branch: main
-    message: |
-      chore: cut package releases 🎉
+    message: "chore: cut package releases 🎉"
+
 scripts:
   gen:version:
     run: sh tool/version.sh

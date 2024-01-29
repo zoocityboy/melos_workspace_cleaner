@@ -3,10 +3,9 @@ description: A starting point for Dart libraries or applications.
 version: 1.0.1
 publish_to: none
 # repository: https://github.com/my_org/my_repo
-
 environment:
   sdk: ^2.19.0
 
 dev_dependencies:
-  lints: ^2.1.0
   test: ^1.24.0
+  zoo_lints: ^3.1.0+1

@@ -6,7 +6,7 @@ Developed by 🦏 [zoocityboy][zoocityboy_link]
 [![ci](https://github.com/zoocityboy/melos_workspace_cleaner/actions/workflows/dart.yml/badge.svg)](https://github.com/zoocityboy/melos_workspace_cleaner/actions)
 [![coverage](https://raw.githubusercontent.com/zoocityboy/melos_workspace_cleaner/main/coverage_badge.svg)](https://github.com/zoocityboy/melos_workspace_cleaner/actions)
 [![License: MIT](https://img.shields.io/badge/license-MIT-purple.svg)](https://opensource.org/licenses/MIT)
-
+[![style: zoo lints](https://img.shields.io/badge/style-zoo_lints-3EB489.svg)](https://pub.dev/packages/zoo_lints)
 
 Melos Workspace Cleaner is a tool designed for cleaning monorepo workspaces built on the [Melos](https://melos.invertase.dev/~melos-latest).
 This tool provides an straightforward solution for maintaining and managing your monorepo project,
