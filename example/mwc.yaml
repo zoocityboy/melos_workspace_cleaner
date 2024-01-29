@@ -1,0 +1,4 @@
+mwc:
+  - "**/pubspec_overrides.yaml"
+  - "**/pubspec.lock"
+  - "**/*.g.dart"

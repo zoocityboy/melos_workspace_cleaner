@@ -19,11 +19,10 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          dart pub global activate coverage
           dart pub global activate melos
           melos bootstrap
+          melos run ci:init
           
-
       - name: Format
         run: melos run ci:format
 

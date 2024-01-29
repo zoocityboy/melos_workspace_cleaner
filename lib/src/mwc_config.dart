@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:glob/glob.dart';
+import 'package:yaml/yaml.dart';
 
 /// Represents the configuration for Melos.
 ///
@@ -11,9 +14,26 @@ class MwcConfig {
   /// The [patterns] parameter is an optional list of file patterns
   /// to be cleaned.
   /// If no patterns are provided, the default patterns will be used.
-  MwcConfig({
-    this.patterns = const ['**/pubspec_overrides.yaml', '**/pubspec.lock'],
+  MwcConfig._({
+    this.patterns = defaultPatterns,
   });
+
+  /// Creates a new instance of [MwcConfig] for testing purposes.
+  factory MwcConfig.manual({List<String>? patterns}) {
+    return MwcConfig._(patterns: patterns ?? defaultPatterns);
+  }
+
+  /// Creates a new instance of [MwcConfig] from a `melos.yaml` .
+  factory MwcConfig.fromConfig() {
+    final patterns = MwcConfig.parseConfig();
+    return MwcConfig._(patterns: patterns ?? defaultPatterns);
+  }
+
+  /// The default patterns used by the MWCConfig class.
+  static const List<String> defaultPatterns = [
+    '**/pubspec_overrides.yaml',
+    '**/pubspec.lock',
+  ];
 
   /// The list of patterns to be cleaned.
   final List<String> patterns;
@@ -38,6 +58,33 @@ class MwcConfig {
     } else {
       pattern = patterns.first;
     }
+    stdout.writeln('Cleaning files matching $pattern');
     return pattern;
+  }
+
+  /// Returns a list of patterns from a `melos.yaml` file.
+  static List<String>? parseConfig() {
+    final melosFile = File('melos.yaml');
+    final mwcFile = File('mwc.yaml');
+    return parseYamlConfig(mwcFile) ?? parseYamlConfig(melosFile);
+  }
+
+  /// Returns a list of patterns from a `mwc.yaml` file.
+  static List<String>? parseYamlConfig(File yaml) {
+    if (!yaml.existsSync()) return null;
+    // ignore: avoid_dynamic_calls
+    final yamlContent = loadYaml(yaml.readAsStringSync());
+    if (yamlContent is! YamlMap) {
+      throw Exception('Melos Workspace Cleaner, invalid yaml format.');
+    }
+    final node = yamlContent['mwc'];
+    if (node is! YamlList?) {
+      throw Exception('Melos Workspace Cleaner, invalid yaml list format.');
+    }
+
+    if (node != null) {
+      return List<String>.from(node.value);
+    }
+    return null;
   }
 }
