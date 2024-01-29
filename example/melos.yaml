@@ -14,7 +14,7 @@ command:
     runPubGetInParallel: false
   clean:
     hooks:
-      pre: melosc
+      pre: mwc
 scripts:
   postclean:
-    run: melosc
+    run: mwc

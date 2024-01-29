@@ -1,6 +1,7 @@
 name: mwc
 description: >
-  Helper tool to clean up melos workspace.
+  Melos Workspace Cleaner is a tool designed for cleaning monorepo workspaces
+  built on the Melos
 version: 0.1.2
 homepage: https://github.com/zoocityboy/melos_workspace_cleaner
 repository: https://github.com/zoocityboy/melos_workspace_cleaner
@@ -25,6 +26,9 @@ dev_dependencies:
   melos: ^4.0.0
   mocktail: ^1.0.3
   test: ^1.24.0
-
+platforms:
+  linux: null
+  macos: null
+  windows: null
 executables:
-  mwc:
+  mwc: mwc

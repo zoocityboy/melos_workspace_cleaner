@@ -18,15 +18,17 @@ jobs:
       - uses: dart-lang/setup-dart@v1
 
       - name: Install Dependencies
-        run: dart pub get
-
-      - name: Format
-        run: dart format --set-exit-if-changed lib
-
-      - name: Analyze
-        run: dart analyze --fatal-infos --fatal-warnings .
-
-      - name: Run Tests
         run: |
           dart pub global activate coverage
-          dart test --coverage=coverage && dart pub global run coverage:format_coverage --lcov --in=coverage --out=coverage/lcov.info --packages=.dart_tool/package_config.json --report-on=lib
+          dart pub global activate melos
+          dart pub get
+          
+
+      - name: Format
+        run: melos run ci:format
+
+      - name: Analyze
+        run: melos run ci:analyze
+
+      - name: Run Tests
+        run: melos run ci:test

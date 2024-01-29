@@ -1,14 +1,22 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
 
 import 'package:glob/list_local_fs.dart';
 import 'package:mason_logger/mason_logger.dart';
+import 'package:meta/meta.dart';
 
 import 'mwc_config.dart';
 
+/// A class that represents the MWC (Melos Workspace Cleaner) command.
 class Mwc {
+  /// The configuration used by this command.
   final MwcConfig config;
-  final Logger logger = Logger();
+
+  /// The logger used by this command.
+  Logger logger = Logger();
+
+  /// Logger setter for testing.
+  @visibleForTesting
+  set testLogger(Logger value) => logger = value;
   Mwc({
     required this.config,
   });
@@ -43,8 +51,7 @@ class Mwc {
   Future<void> run() async {
     final progress = logger.progress('Removing...');
     try {
-      final files = config.glob.listSync(followLinks: false).toList()
-        ..sort((a, b) => b.path.compareTo(a.path));
+      final files = config.glob.listSync(followLinks: false).toList()..sort((a, b) => b.path.compareTo(a.path));
       if (files.isEmpty) {
         progress.complete('No files to clean');
         logger.detail('pattern: ${config.formatedPatterns}');
