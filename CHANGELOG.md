@@ -1,3 +1,7 @@
+## 0.1.6
+
+ - **FEAT**: gen. ([bce7c179](https://github.com/zoocityboy/melos_workspace_cleaner/commit/bce7c17945ffe87b376b43817649c1817f27838f))
+
 ## 0.1.5
 
  - **FEAT**: version. ([5da694d2](https://github.com/zoocityboy/melos_workspace_cleaner/commit/5da694d27f57aeb8e498310e4985d5dde1625bf7))
