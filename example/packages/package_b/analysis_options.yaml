@@ -1,1 +1,4 @@
 include: ../../../all_lints.yaml
+linter:
+  rules:
+    public_member_api_docs: false
