@@ -1,3 +1,7 @@
+## 0.1.2+1
+
+ - **DOCS**: update. ([763b941e](https://github.com/zoocityboy/melos_workspace_cleaner/commit/763b941e0af5787177a5f81ec27c88f63ad0e6f6))
+
 # Change Log
 
 All notable changes to this project will be documented in this file.
