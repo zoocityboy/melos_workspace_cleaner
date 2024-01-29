@@ -1,5 +1,5 @@
 ![alt text](https://raw.githubusercontent.com/zoocityboy/melos_workspace_cleaner/main/assets/workspace_cleaner.webp "Resoure")
-
+Developed by 🦏 [zoocityboy][zoocityboy_link]
 # Melos Workspace Cleaner
 
 [![Pub](https://img.shields.io/pub/v/mwc.svg)](https://pub.dev/packages/mwc)
@@ -33,7 +33,7 @@ dart pub global activate mwc
 
 ```bash
 # run command from terminal in root of the project
-mwc -h
+$ mwc -h
 
 Melos Workspace Cleaner
 
@@ -42,6 +42,8 @@ Usage: mwc [options]
     --version     Print the current version.
 -p, --patterns    Patterns to be deleted.
 ```
+
+
 
 ```yaml
 # melos.yaml
@@ -95,4 +97,26 @@ mwc:
   - **/pubspec_overrides.yaml
   ...  
 ```
+### Manual
 
+you can add patterns to be cleaned using the `--patterns` option.
+
+```bash
+# run command from terminal in root of the project
+$ mwc --patterns "**/pubspec.lock,**/pubspec_overrides.yaml"
+```
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+-------------------
+[![zoocityboy][logo_white]][zoocityboy_link_dark]
+[![zoocityboy][logo_black]][zoocityboy_link_light]
+
+
+[logo_black]:https://raw.githubusercontent.com/zoocityboy/zoo_brand/main/styles/README/zoocityboy_dark.png#gh-light-mode-only
+[logo_white]: https://raw.githubusercontent.com/zoocityboy/zoo_brand/main/styles/README/zoocityboy_light.png#gh-dark-mode-only
+[zoocityboy_link]: https://github.com/zoocityboy
+[zoocityboy_link_dark]: https://github.com/zoocityboy#gh-dark-mode-only
+[zoocityboy_link_light]: https://github.com/zoocityboy#gh-light-mode-only
