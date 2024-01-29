@@ -10,17 +10,13 @@ command:
   version:
     linkToCommits: true
     workspaceChangelog: true
-
   bootstrap:
-    runPubGetInParallel: false
     dev_dependencies:
       test: ^1.24.0
   clean:
     hooks:
       pre: mwc
 scripts:
-  postclean:
-    run: mwc
   ci:analyze:
     description: |
       Run `dart analyze` in all packages.
