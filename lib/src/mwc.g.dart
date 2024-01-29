@@ -3,4 +3,3 @@
 part of 'mwc.dart';
 
 const packageVersion = '0.1.2+1';
-

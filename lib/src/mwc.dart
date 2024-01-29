@@ -9,6 +9,7 @@ import 'package:mwc/src/mwc_config.dart';
 
 import 'package:pub_updater/pub_updater.dart';
 part 'mwc.g.dart';
+
 /// A class that represents the MWC (Melos Workspace Cleaner) command.
 class Mwc {
   /// Creates a new instance of the MWC (Melos Workspace Cleaner) command.
