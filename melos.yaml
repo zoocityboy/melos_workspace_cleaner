@@ -21,12 +21,12 @@ command:
     message: "chore: cut package releases 🎉"
     hooks:
       preCommit: |
-        dart tool/version.dart
+        melos run gen:version
         git add lib/src/mwc.g.dart
 
 scripts:
   gen:version:
-    run: sh tool/version.sh
+    run: dart tool/version.dart
   postclean: >
     melos exec -c 1 -- \
       "flutter pub get"
