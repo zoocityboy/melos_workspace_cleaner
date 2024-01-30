@@ -23,10 +23,11 @@ void main() {
   final fileContents = '''
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: eol_at_end_of_file, public_member_api_docs
+
 part of 'mwc.dart';
+
 /// Current version of the MWC in pubspec.yaml.
 const packageVersion = '$currentVersion';
-
 ''';
   File(outputPath).writeAsStringSync(fileContents);
   print('Updated version to $currentVersion in generated file $outputPath');
