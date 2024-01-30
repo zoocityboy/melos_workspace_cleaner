@@ -1,20 +1,15 @@
 name: Publish plugin
 
+
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+*'
 
 jobs:
   publish:
-    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # Required for authentication using OIDC
+    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Publish
-        uses: sakebook/actions-flutter-pub-publisher@v1.21
-        with:
-          credential: ${{ secrets.CREDENTIAL_JSON }}
-          flutter_package: false
-          skip_test: true
           
