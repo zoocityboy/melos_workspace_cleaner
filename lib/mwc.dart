@@ -3,5 +3,11 @@
 /// More dartdocs go here.
 library;
 
-export 'src/mwc.dart';
-export 'src/mwc_config.dart';
+export 'src/mwc.dart'
+    show
+        EntryPointClass,
+        Mwc,
+        MwcConfig,
+        MwcPatternsNotFound,
+        MwcRunner,
+        packageVersion;

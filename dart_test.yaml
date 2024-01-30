@@ -1,6 +1,6 @@
 # This package's tests are very slow. Double the default timeout.
 timeout: 1x
-concurrency: 4
+concurrency: 1
 tags:
   integration: { timeout: 2x }
   undebugable: {}
@@ -9,11 +9,6 @@ tags:
   domain: {}
   unit: {}
   basicFlow: { timeout: 2x }
-
-  chrome: { add_tags: [browser] }
-  firefox: { add_tags: [browser] }
-  safari: { add_tags: [browser] }
-  ie: { add_tags: [browser] }
 
 fold_stack_frames:
   except:
