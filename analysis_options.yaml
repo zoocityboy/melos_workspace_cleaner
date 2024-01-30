@@ -2,6 +2,3 @@ include: package:zoo_lints/analysis_options.yaml
 linter:
   rules:
     public_member_api_docs: false
-analyzer:
-  exclude:
-    - "**/*.g.dart"

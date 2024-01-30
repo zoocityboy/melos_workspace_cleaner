@@ -22,11 +22,11 @@ command:
     hooks:
       preCommit: |
         melos run gen:version
-        git add .
+        git add lib/src/mwc.g.dart
 
 scripts:
   gen:version:
-    run: sh tool/version.sh
+    run: dart tool/version.dart
   postclean: >
     melos exec -c 1 -- \
       "flutter pub get"
@@ -69,12 +69,13 @@ scripts:
     description: |
       Run `dart test` in all packages.
     run: |
-      dart test --coverage=coverage --debug
-      dart pub global run coverage:format_coverage \
+      dart test --coverage=coverage --debug \
+      && dart pub run coverage:format_coverage \
       --lcov \
       --in=coverage \
       --out=coverage/lcov.info \
       --packages=.dart_tool/package_config.json \
-      --report-on=lib
+      --report-on=lib \
+      && dart pub run test_coverage_badge
     packageFilters:
       scope: "mwc"
