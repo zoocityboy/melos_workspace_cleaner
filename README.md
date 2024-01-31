@@ -4,7 +4,7 @@ Developed by 🦏 [zoocityboy][zoocityboy_link]
 
 [![Pub](https://img.shields.io/pub/v/mwc.svg?style=flat-square)](https://pub.dev/packages/mwc)
 [![pub points](https://img.shields.io/pub/points/mwc?style=flat-square&color=2E8B57&label=pub%20points)](https://pub.dev/packages/mwc/score)
-[![ci](https://github.com/zoocityboy/melos_workspace_cleaner/actions/workflows/ci.yaml/badge.svg?style=flat-square)](https://github.com/zoocityboy/melos_workspace_cleaner/actions)
+[![ci](https://github.com/zoocityboy/melos_workspace_cleaner/actions/workflows/ci.yaml/badge.svg?style=flat-square)](https://github.com/zoocityboy/melos_workspace_cleaner/actions/workflows/ci.yaml)
 [![coverage](https://raw.githubusercontent.com/zoocityboy/melos_workspace_cleaner/main/coverage_badge.svg?style=flat-square)](https://github.com/zoocityboy/melos_workspace_cleaner/actions)
 [![License: MIT](https://img.shields.io/badge/license-MIT-purple.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 [![style: zoo lints](https://img.shields.io/badge/style-zoo_lints-3EB489.svg?style=flat-square)](https://pub.dev/packages/zoo_lints)
