@@ -1,3 +1,7 @@
+## 0.2.2+1
+
+ - **DOCS**: Add configuration parameters to Mwc class. ([04f336fd](https://github.com/zoocityboy/melos_workspace_cleaner/commit/04f336fd8e7d015e7f7b20c616df1243df09a321))
+
 ## 0.2.2
 
  - **FEAT**: Add exception classes for YAML file format and MWC patterns not found. ([b2fa9caa](https://github.com/zoocityboy/melos_workspace_cleaner/commit/b2fa9caacd38db164fa9a579b6a839792e2635bb))
