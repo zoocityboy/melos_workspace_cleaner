@@ -1,9 +1,12 @@
+build/
 example/
-melos.yaml
 tmp/
 coverage/
 reports/
 tool/
 test/
 all_lints.yaml
+dart_test.yaml
+melos.yaml
 pubspec_overrides.yaml
+
