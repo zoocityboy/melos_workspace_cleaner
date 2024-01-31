@@ -2,14 +2,8 @@ part of 'mwc.dart';
 
 /// A collection of constants used in the MWC library.
 abstract class MwcConstants {
-  /// Current version of the MWC from generated script.
-  static String get cliVersion => packageVersion;
-
   /// Package name
   static String cliName = 'mwc';
-
-  /// MWC node in yaml.
-  static String get yamlListNode => cliName;
 
   /// The default patterns used by the MWCConfig class.
   static const List<String> defaultPatterns = [
@@ -24,6 +18,12 @@ abstract class MwcConstants {
   /// The default name of the `melos.yaml` file.
   static File defaultMelosConfigFileName =
       File([Directory.current.path, 'melos.yaml'].join(Platform.pathSeparator));
+
+  /// Current version of the MWC from generated script.
+  static String get cliVersion => packageVersion;
+
+  /// MWC node in yaml.
+  static String get yamlListNode => cliName;
 }
 
 /// Extension on List<String> to convert a list of strings to a Glob pattern string.
