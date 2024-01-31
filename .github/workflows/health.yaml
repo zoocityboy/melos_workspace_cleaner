@@ -6,9 +6,15 @@ on:
 jobs:
   health:
     uses: dart-lang/ecosystem/.github/workflows/health.yaml@main
-    # with:
-        # checks: "version,changelog,license,coverage"
-        # warn_on: "version,changelog,license"
-        # upload_coverage: true
-        # ignore_coverage: "test/**,example/**"
-        # ignore_packages: "packages/**"
+    with:
+      sdk: beta
+      checks: "version,changelog,license,coverage,breaking,do-not-submit"
+      fail_on: "version,changelog,do-not-submit"
+      warn_on: "license,coverage,breaking"
+      coverage_web: false
+      upload_coverage: true
+      use-flutter: false
+      ignore_license: "**.g.dart"
+      ignore_coverage: "**.g.dart"
+      ignore_packages: "example/,example/packages/package_a,example/packages/package_b,example/packages/package_c"
+      checkout_submodules: false
