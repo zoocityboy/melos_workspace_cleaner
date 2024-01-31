@@ -70,8 +70,11 @@ scripts:
     description: |
       Run `dart test` in all packages.
     run: |
-      very_good test --coverage --min-coverage 95 \
-      && sleep 3 \
-      && dart pub run test_coverage_badge
+      very_good test \
+      --coverage \
+      --min-coverage 95 
+      sleep 2 
+      cat coverage/lcov.info
+      dart tool/badge.dart -t coverage -p coverage/lcov.info -o .
     packageFilters:
       scope: "mwc"
