@@ -1,5 +1,7 @@
 part of 'mwc.dart';
 
+/// This class represents a collection of strings used in the Mwc library.
+/// It provides an abstraction for accessing and managing these strings.
 abstract class MwcStrings {
   static const String invalidYamlFormat = '''
 Invalid YAML format.

@@ -70,6 +70,7 @@ class MwcConfig {
   }
 }
 
+/// Exception thrown when the format of a YAML file is invalid.
 class InvalidYamlFormatException implements Exception {
   const InvalidYamlFormatException();
   @override
@@ -77,6 +78,7 @@ class InvalidYamlFormatException implements Exception {
       'InvalidYamlFormatException: ${MwcStrings.invalidYamlFormat}';
 }
 
+/// Exception thrown when the format of a YAML list is invalid.
 class InvalidYamlListFormatException implements Exception {
   const InvalidYamlListFormatException();
   @override
@@ -84,6 +86,7 @@ class InvalidYamlListFormatException implements Exception {
       'InvalidYamlListFormatException: ${MwcStrings.invalidYamlListFormat}';
 }
 
+/// Exception thrown when MWC patterns are not found.
 class MwcPatternsNotFound implements Exception {
   /// Creates a new instance of [MwcPatternsNotFound].
   ///
