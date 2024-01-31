@@ -6,9 +6,9 @@ on:
 jobs:
   health:
     uses: dart-lang/ecosystem/.github/workflows/health.yaml@main
-    with:
-        checks: "version,changelog,license,coverage"
-        warn_on: "version,changelog,license"
-        upload_coverage: true
-        ignore_coverage: "test/**,example/**"
-        ignore_packages: "packages/**"
+    # with:
+        # checks: "version,changelog,license,coverage"
+        # warn_on: "version,changelog,license"
+        # upload_coverage: true
+        # ignore_coverage: "test/**,example/**"
+        # ignore_packages: "packages/**"
