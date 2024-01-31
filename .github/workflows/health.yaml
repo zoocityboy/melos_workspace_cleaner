@@ -10,7 +10,6 @@ jobs:
       pull-requests: write
     uses: dart-lang/ecosystem/.github/workflows/health.yaml@main
     with:
-      sdk: beta
       checks: "version,changelog,license,coverage,breaking,do-not-submit"
       fail_on: "version,changelog,do-not-submit"
       warn_on: "license,coverage,breaking"
