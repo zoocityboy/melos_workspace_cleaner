@@ -1,4 +1,9 @@
 example/
-.gitignore
 melos.yaml
+tmp/
+coverage/
+reports/
+tool/
+test/
+all_lints.yaml
 pubspec_overrides.yaml
