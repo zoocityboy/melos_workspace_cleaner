@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:args/args.dart';
@@ -53,3 +54,16 @@ final testMelosConfigFile = File(
     'melos.yaml',
   ].join(Platform.pathSeparator),
 );
+
+///
+T testRunZoned<T>(
+  T Function() body, {
+  Map<Object?, Object?>? zoneValues,
+  Stdin Function()? stdin,
+  Stdout Function()? stdout,
+}) {
+  return runZoned(
+    () => IOOverrides.runZoned(body, stdout: stdout, stdin: stdin),
+    zoneValues: zoneValues,
+  );
+}

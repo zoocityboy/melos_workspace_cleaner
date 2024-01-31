@@ -86,8 +86,10 @@ class MwcConfig {
     return List<String>.from(nodeContent.value);
   }
 }
+
 /// Exception thrown when the format of a YAML file is invalid.
 class InvalidYamlFormatException implements Exception {
+  /// Creates a new instance of [InvalidYamlFormatException].
   const InvalidYamlFormatException();
 
   /// Returns a string representation of the exception.
@@ -98,6 +100,7 @@ class InvalidYamlFormatException implements Exception {
 
 /// Exception thrown when the format of a YAML list is invalid.
 class InvalidYamlListFormatException implements Exception {
+  /// Creates a new instance of [InvalidYamlListFormatException].
   const InvalidYamlListFormatException();
 
   /// Returns a string representation of the exception.
@@ -109,7 +112,6 @@ class InvalidYamlListFormatException implements Exception {
 /// Exception thrown when MWC patterns are not found.
 class MwcPatternsNotFound implements Exception {
   /// Creates a new instance of [MwcPatternsNotFound].
-  ///
   MwcPatternsNotFound();
 
   /// Returns a string representation of the exception.

@@ -6,10 +6,4 @@
 library;
 
 export 'src/mwc.dart'
-    show
-        EntryPointClass,
-        Mwc,
-        MwcConfig,
-        MwcPatternsNotFound,
-        MwcRunner,
-        packageVersion;
+    show EntryPointClass, Mwc, MwcConfig, MwcPatternsNotFound, MwcRunner;

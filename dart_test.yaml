@@ -16,7 +16,7 @@ fold_stack_frames:
     - stream_channel
 
 debug:
-  run_skipped: true
+  run_skipped: false
   paths: ["test/"]
 
 file_reporters:

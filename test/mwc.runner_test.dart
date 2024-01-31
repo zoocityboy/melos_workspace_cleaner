@@ -187,12 +187,24 @@ void main() {
         final arguments = <String>['--version', '--verbose'];
         final pubUpdater = MockPubUpdater();
         final context = MockLaunchContext();
+        final logger = MockLogger();
 
         final runner = MwcRunner.test(
           pubUpdater: pubUpdater,
           melosFile: File(''),
           mwcFile: File(''),
+          logger: logger,
         );
+
+        when(() => logger.info(any())).thenReturn(null);
+        when(() => logger.detail(any())).thenReturn(null);
+        when(() => logger.success(any())).thenReturn(null);
+        when(
+          () => logger.confirm(
+            any(),
+            defaultValue: any(named: 'defaultValue'),
+          ),
+        ).thenReturn(true);
 
         when(() => context.localInstallation).thenReturn(null);
         when(
@@ -204,18 +216,13 @@ void main() {
         when(() => pubUpdater.getLatestVersion(any()))
             .thenAnswer((_) async => latestVersion);
         when(
-          () => runner.logger.confirm(
-            any(),
-            defaultValue: any(named: 'defaultValue'),
-          ),
-        ).thenReturn(true);
-        when(() => pubUpdater.update(packageName: any(named: 'packageName')))
-            .thenAnswer(
-          (invocation) async => ProcessResult(1, 0, stdout, stderr),
+          () => pubUpdater.update(packageName: any(named: 'packageName')),
+        ).thenAnswer(
+          (invocation) async {
+            return ProcessResult(1, 0, stdout, stderr);
+          },
         );
-
         await runner.version(context);
-
         verifyInOrder([
           () => runner.parser.parse(arguments),
           () => runner.logger.info(MwcStrings.currentVersion),
@@ -232,7 +239,6 @@ void main() {
           () => runner.logger.success(MwcStrings.updateSuccess(latestVersion)),
         ]);
       },
-      skip: true,
     );
   });
 

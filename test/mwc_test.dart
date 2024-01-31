@@ -132,16 +132,17 @@ void main() {
 
     group('entry point', () {
       test('should run Mwc command', () async {
+        final context = MockLaunchContext();
         final arguments = <String>['-h'];
         final runner = MwcRunner();
         final ep = EntryPointClass(
           arguments: arguments,
-          context: LaunchContext(
-            directory: Directory.systemTemp,
-          ),
+          context: context,
           runner: runner,
         );
-
+        when(() => context.directory).thenReturn(Directory.systemTemp);
+        when(() => context.localInstallation).thenReturn(null);
+        when(() => context.globalInstallation).thenReturn(null);
         await ep.entrypoint();
 
         verifyInOrder([
@@ -152,10 +153,22 @@ void main() {
 
       test('should run version', () async {
         final arguments = <String>['--version'];
-        final runner = MwcRunner();
-        final context = LaunchContext(
-          directory: Directory.systemTemp,
+        final pubUpdater = MockPubUpdater();
+        final context = LaunchContext(directory: Directory.current);
+        when(
+          () => pubUpdater.isUpToDate(
+            packageName: any(named: 'packageName'),
+            currentVersion: any(named: 'currentVersion'),
+          ),
+        ).thenAnswer((_) async {
+          return true;
+        });
+        final runner = MwcRunner.test(
+          pubUpdater: pubUpdater,
+          melosFile: File(''),
+          mwcFile: File(''),
         );
+
         final ep = EntryPointClass(
           arguments: arguments,
           context: context,
@@ -164,11 +177,12 @@ void main() {
 
         await ep.entrypoint();
 
-        expect(arguments.contains('--version'), isTrue);
-
         verifyInOrder([
-          () => runner.logger.detail('version'),
-          () => runner.version(context),
+          () => runner.logger.detail(MwcStrings.mwcVersionLabel),
+          () => pubUpdater.isUpToDate(
+                packageName: any(named: 'packageName'),
+                currentVersion: any(named: 'currentVersion'),
+              ),
         ]);
       });
     });

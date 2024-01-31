@@ -9,10 +9,12 @@ part of 'mwc.dart';
 /// The `EntryPointClass` class acts as a wrapper for the `MwcRunner` class and provides an entrypoint method for executing the command.
 
 class MwcRunner {
+  /// Creates a new instance of the MWC (Melos Workspace Cleaner) command.
   factory MwcRunner() => MwcRunner._(
         mwcFile: MwcConstants.defaultConfigFileName,
         melosFile: MwcConstants.defaultMelosConfigFileName,
         pubUpdater: PubUpdater(),
+        logger: Logger(),
       );
 
   /// Creates a new instance of the MWC (Melos Workspace Cleaner) command.
@@ -20,6 +22,7 @@ class MwcRunner {
     required this.mwcFile,
     required this.melosFile,
     required this.pubUpdater,
+    required this.logger,
   }) {
     parser = ArgParser(usageLineLength: 80)
       ..addFlag(
@@ -45,24 +48,31 @@ class MwcRunner {
       );
   }
 
+  /// Creates a new instance of the MWC (Melos Workspace Cleaner) command.
+  @visibleForTesting
   factory MwcRunner.test({
     required File mwcFile,
     required File melosFile,
     required PubUpdater pubUpdater,
+    Logger? logger,
   }) =>
       MwcRunner._(
         mwcFile: mwcFile,
         melosFile: melosFile,
         pubUpdater: pubUpdater,
+        logger: logger ?? Logger(),
       );
 
   /// The logger used by this command.
-  Logger logger = Logger();
+  Logger logger;
 
   /// The pub updater used by this command.
   final PubUpdater pubUpdater;
 
+  /// The default MWC configuration file name.
   late File mwcFile;
+
+  /// The default Melos configuration file name.
   late File melosFile;
 
   /// The parser used by this command.
@@ -135,7 +145,6 @@ class MwcRunner {
       ..info(MwcConstants.cliVersion);
 
     // Check for updates.
-
     final isUpToDate = await pubUpdater.isUpToDate(
       packageName: MwcConstants.cliName,
       currentVersion: MwcConstants.cliVersion,
@@ -174,8 +183,14 @@ class EntryPointClass {
     required this.context,
     this.runner,
   });
+
+  /// The arguments passed to the command.
   final List<String> arguments;
+
+  /// The context used by this command.
   final LaunchContext context;
+
+  /// The runner used by this command.
   final MwcRunner? runner;
 
   /// The entrypoint for the MWC (Melos Workspace Cleaner) command.

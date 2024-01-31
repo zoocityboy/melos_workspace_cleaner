@@ -27,6 +27,7 @@ void main() {
 part of 'mwc.dart';
 
 /// Current version of the MWC in pubspec.yaml.
+@internal
 const packageVersion = '$currentVersion';
 ''';
   File(outputPath).writeAsStringSync(fileContents);
