@@ -20,7 +20,7 @@ jobs:
       use-flutter: false
       ignore_license: "**.g.dart"
       ignore_coverage: "**.g.dart"
-      ignore_packages: "example/,example/packages/package_a,example/packages/package_b,example/packages/package_c"
+      ignore_packages: "example/**"
       checkout_submodules: false
   summary:
     needs: health
@@ -37,6 +37,8 @@ jobs:
     needs: health
     permissions:
       id-token: write # Required for authentication using OIDC
-    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
+    uses: dart-lang/ecosystem/.github/workflows/publish.yaml@main
+    with:
+      write-comments: false
 
           
