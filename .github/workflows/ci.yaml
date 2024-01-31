@@ -8,11 +8,13 @@ name: CI
 on:
   pull_request:
     branches: [ "main" ]
+    paths:
+      - "lib/**"
+      - "test/**"
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
       - uses: dart-lang/setup-dart@v1
@@ -32,3 +34,4 @@ jobs:
 
       - name: Run Tests
         run: melos run ci:test
+  
