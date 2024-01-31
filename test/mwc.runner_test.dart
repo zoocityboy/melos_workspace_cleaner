@@ -179,6 +179,61 @@ void main() {
         () => runner.logger.warn(MwcStrings.updateAvailable(latestVersion)),
       ]);
     });
+
+    test(
+      'update global ',
+      () async {
+        const latestVersion = '1.0.0';
+        final arguments = <String>['--version', '--verbose'];
+        final pubUpdater = MockPubUpdater();
+        final context = MockLaunchContext();
+
+        final runner = MwcRunner.test(
+          pubUpdater: pubUpdater,
+          melosFile: File(''),
+          mwcFile: File(''),
+        );
+
+        when(() => context.localInstallation).thenReturn(null);
+        when(
+          () => pubUpdater.isUpToDate(
+            packageName: any(named: 'packageName'),
+            currentVersion: any(named: 'currentVersion'),
+          ),
+        ).thenAnswer((_) async => false);
+        when(() => pubUpdater.getLatestVersion(any()))
+            .thenAnswer((_) async => latestVersion);
+        when(
+          () => runner.logger.confirm(
+            any(),
+            defaultValue: any(named: 'defaultValue'),
+          ),
+        ).thenReturn(true);
+        when(() => pubUpdater.update(packageName: any(named: 'packageName')))
+            .thenAnswer(
+          (invocation) async => ProcessResult(1, 0, stdout, stderr),
+        );
+
+        await runner.version(context);
+
+        verifyInOrder([
+          () => runner.parser.parse(arguments),
+          () => runner.logger.info(MwcStrings.currentVersion),
+          () => pubUpdater.isUpToDate(
+                packageName: any(named: 'packageName'),
+                currentVersion: any(named: 'currentVersion'),
+              ),
+          () => pubUpdater.getLatestVersion(any()),
+          () => runner.logger.confirm(
+                any(),
+                defaultValue: any(named: 'defaultValue'),
+              ),
+          () => pubUpdater.update(packageName: any(named: 'packageName')),
+          () => runner.logger.success(MwcStrings.updateSuccess(latestVersion)),
+        ]);
+      },
+      skip: true,
+    );
   });
 
   group('strings', () {

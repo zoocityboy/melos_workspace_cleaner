@@ -57,6 +57,7 @@ scripts:
       Run `dart pub get` in all packages.
     run: |
       dart pub global activate coverage
+      dart pub global activate very_good_cli
       melos run gen:version
   ci:analyze:
     description: |
@@ -69,13 +70,11 @@ scripts:
     description: |
       Run `dart test` in all packages.
     run: |
-      dart test --coverage=coverage --debug \
-      && dart pub run coverage:format_coverage \
-      --lcov \
-      --in=coverage \
-      --out=coverage/lcov.info \
-      --packages=.dart_tool/package_config.json \
-      --report-on=lib \
-      && dart pub run test_coverage_badge
+      very_good test \
+      --coverage \
+      --min-coverage 95 
+      sleep 2 
+      cat coverage/lcov.info
+      dart tool/badge.dart -t coverage -p coverage/lcov.info -o .
     packageFilters:
       scope: "mwc"

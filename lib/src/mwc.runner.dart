@@ -136,7 +136,6 @@ class MwcRunner {
       currentVersion: MwcConstants.cliVersion,
     );
     if (!isUpToDate) {
-      // coverage:ignore-start
       final latestVersion =
           await pubUpdater.getLatestVersion(MwcConstants.cliName);
       final isGlobal = context.localInstallation == null;
@@ -154,7 +153,6 @@ class MwcRunner {
       } else {
         logger.warn(MwcStrings.updateAvailable(latestVersion));
       }
-      // coverage:ignore-end
     }
     return;
   }

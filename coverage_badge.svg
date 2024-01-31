@@ -4,17 +4,18 @@
     <stop offset="1" stop-opacity=".1"/>
   </linearGradient>
   <clipPath id="a">
-    <rect width="94" height="20" rx="3" fill="#fff"/>
+    <rect width="94" height="20" rx="0" fill="#fff"/>
   </clipPath>
   <g clip-path="url(#a)">
     <path fill="#555" d="M0 0h59v20H0z"/>
-    <path fill="#5dcb0b" d="M59 0h35v20H59z"/>
+    <path fill="#00e676" d="M59 0h35v20H59z"/>
     <path fill="url(#b)" d="M0 0h94v20H0z"/>
   </g>
   <g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="110">
-    <text x="305" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="490">coverage</text>
+    <text x="305" y="150" fill="#ffffff" fill-opacity=".3" transform="scale(.1)" textLength="490">coverage</text>
     <text x="305" y="140" transform="scale(.1)" textLength="490">coverage</text>
-    <text x="755" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="250">96%</text>
+    <text x="755" y="150" fill="#ffffff" fill-opacity=".3" transform="scale(.1)" textLength="250">96%</text>
     <text x="755" y="140" transform="scale(.1)" textLength="250">96%</text>
   </g>
 </svg>
+    
