@@ -5,4 +5,4 @@ part of 'mwc.dart';
 
 /// Current version of the MWC in pubspec.yaml.
 @internal
-const packageVersion = '0.2.2+1';
+const packageVersion = '0.2.2+2';
