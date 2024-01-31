@@ -1,3 +1,5 @@
+## 0.2.0
+
 ## 0.1.7+1
 
  - **FIX**: patterns listing ([#5](https://github.com/zoocityboy/melos_workspace_cleaner/issues/5)). ([71872dc2](https://github.com/zoocityboy/melos_workspace_cleaner/commit/71872dc259d4638a5a3c28febebdcb6d27ff19df))
