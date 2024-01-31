@@ -1,5 +1,6 @@
 part of 'mwc.dart';
 
+/// A collection of constants used in the MWC library.
 abstract class MwcConstants {
   /// Current version of the MWC from generated script.
   static String get cliVersion => packageVersion;
@@ -25,8 +26,11 @@ abstract class MwcConstants {
       File([Directory.current.path, 'melos.yaml'].join(Platform.pathSeparator));
 }
 
-/// Convert a list of strings to Glob pattern string.
+/// Extension on List<String> to convert a list of strings to a Glob pattern string.
 extension PatternsString on List<String> {
+  /// Converts the list of strings to a formatted Glob pattern string.
+  ///
+  /// Throws [MwcPatternsNotFound] if the list is empty.
   String get formatedPatterns {
     String pattern;
     if (isEmpty) {

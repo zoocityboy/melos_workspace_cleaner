@@ -1,12 +1,14 @@
 part of 'mwc.dart';
 
-/// Represents the configuration for Melos.
+/// Represents the configuration for the MWC (Melos Workspace Cleaner) tool.
 ///
-/// The [MwcConfig] class contains a list of patterns that specify the files to
-/// be cleaned.By default, the patterns include 'pubspec_overrides.yaml'
-/// and 'pubspec.lock'.
+/// The [MwcConfig] class provides factory methods and properties to create
+/// and access the configuration settings for the MWC tool.
 class MwcConfig {
-  /// Creates a new instance of [MwcConfig] for testing purposes.
+  /// Creates a [MwcConfig] instance manually with the given [logger] and optional [patterns].
+  ///
+  /// If [patterns] is not provided, the default patterns defined in [MwcConstants.defaultPatterns]
+  /// will be used.
   factory MwcConfig.manual(Logger logger, {List<String>? patterns}) {
     return MwcConfig._(
       logger: logger,
@@ -14,7 +16,15 @@ class MwcConfig {
     );
   }
 
-  /// Creates a new instance of [MwcConfig] from a `melos.yaml` .
+  /// Creates a [MwcConfig] instance from the configuration files.
+  ///
+  /// The [logger] is required, and the [melosFile] and [mwcFile] are the paths to
+  /// the Melos and MWC configuration files respectively.
+  ///
+  /// The method attempts to parse the MWC configuration from the [mwcFile] first,
+  /// and if it fails, it falls back to parsing the Melos configuration from the [melosFile].
+  /// If neither file contains valid configuration, the default patterns defined in
+  /// [MwcConstants.defaultPatterns] will be used.
   factory MwcConfig.fromConfig(
     Logger logger, {
     required File melosFile,
@@ -26,11 +36,11 @@ class MwcConfig {
     return MwcConfig._(logger: logger, patterns: patterns);
   }
 
-  /// Creates a new instance of [MwcConfig].
+  /// Private constructor for [MwcConfig].
   ///
-  /// The [patterns] parameter is an optional list of file patterns
-  /// to be cleaned.
-  /// If no patterns are provided, the default patterns will be used.
+  /// The [logger] is required, and [patterns] is an optional list of patterns to be cleaned.
+  /// If [patterns] is not provided, the default patterns defined in [MwcConstants.defaultPatterns]
+  /// will be used.
   MwcConfig._({
     required this.logger,
     this.patterns = MwcConstants.defaultPatterns,
@@ -54,9 +64,16 @@ class MwcConfig {
   String get formatedPatterns => patterns.formatedPatterns;
 
   /// Returns a list of patterns from a `mwc.yaml` file.
+  ///
+  /// The [yaml] parameter is the path to the `mwc.yaml` file.
+  /// If the file does not exist, `null` is returned.
+  ///
+  /// This method attempts to parse the YAML content of the file and extract
+  /// the list of patterns defined in the `mwc.yaml` file.
+  /// If the YAML content is invalid or does not contain the expected structure,
+  /// an exception is thrown.
   static List<String>? parseYamlConfig(File yaml) {
     if (!yaml.existsSync()) return null;
-    // ignore: avoid_dynamic_calls
     final yamlContent = loadYaml(yaml.readAsStringSync()) as YamlMap;
     if (!yamlContent.containsKey(MwcConstants.yamlListNode)) {
       throw const InvalidYamlFormatException();
@@ -69,10 +86,11 @@ class MwcConfig {
     return List<String>.from(nodeContent.value);
   }
 }
-
 /// Exception thrown when the format of a YAML file is invalid.
 class InvalidYamlFormatException implements Exception {
   const InvalidYamlFormatException();
+
+  /// Returns a string representation of the exception.
   @override
   String toString() =>
       'InvalidYamlFormatException: ${MwcStrings.invalidYamlFormat}';
@@ -81,6 +99,8 @@ class InvalidYamlFormatException implements Exception {
 /// Exception thrown when the format of a YAML list is invalid.
 class InvalidYamlListFormatException implements Exception {
   const InvalidYamlListFormatException();
+
+  /// Returns a string representation of the exception.
   @override
   String toString() =>
       'InvalidYamlListFormatException: ${MwcStrings.invalidYamlListFormat}';
@@ -92,6 +112,7 @@ class MwcPatternsNotFound implements Exception {
   ///
   MwcPatternsNotFound();
 
+  /// Returns a string representation of the exception.
   @override
   String toString() => 'MwcPatternsNotFound: ${MwcStrings.noPatternsProvided}';
 }

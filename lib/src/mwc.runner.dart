@@ -1,6 +1,12 @@
 part of 'mwc.dart';
 
 /// Represents the entry point for Mwc.
+///
+/// This class serves as the entry point for the Mwc (Melos Workspace Cleaner) command.
+/// It provides methods for running the command and checking for updates.
+/// The `MwcRunner` class is responsible for parsing command line arguments, initializing the logger and pub updater,
+/// and executing the Mwc command based on the provided arguments.
+/// The `EntryPointClass` class acts as a wrapper for the `MwcRunner` class and provides an entrypoint method for executing the command.
 
 class MwcRunner {
   factory MwcRunner() => MwcRunner._(
@@ -119,7 +125,6 @@ class MwcRunner {
       await cleaner.run();
     } catch (e) {
       logger.err(e.toString());
-      // exit(0);
     }
   }
 
@@ -159,6 +164,9 @@ class MwcRunner {
 }
 
 /// The entrypoint for the MWC (Melos Workspace Cleaner) command.
+///
+/// This class is responsible for creating an instance of the `MwcRunner` class and executing the command based on the provided arguments.
+/// It also provides an option to check for updates and update the Mwc CLI if a new version is available.
 class EntryPointClass {
   /// Creates a new instance of the MWC (Melos Workspace Cleaner) command.
   EntryPointClass({

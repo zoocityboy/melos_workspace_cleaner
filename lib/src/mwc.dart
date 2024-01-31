@@ -15,10 +15,12 @@ part 'mwc.constants.dart';
 part 'mwc.g.dart';
 part 'mwc.runner.dart';
 part 'mwc.strings.dart';
-
 /// A class that represents the MWC (Melos Workspace Cleaner) command.
 class Mwc {
   /// Creates a new instance of the MWC (Melos Workspace Cleaner) command.
+  ///
+  /// The [config] parameter is the configuration used by this command.
+  /// The [logger] parameter is the logger used by this command.
   Mwc({
     required this.config,
     required this.logger,
