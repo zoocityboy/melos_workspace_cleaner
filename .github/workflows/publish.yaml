@@ -37,6 +37,7 @@ jobs:
     needs: health
     permissions:
       id-token: write # Required for authentication using OIDC
+      pull-requests: write
     uses: dart-lang/ecosystem/.github/workflows/publish.yaml@main
     with:
       write-comments: false
