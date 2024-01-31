@@ -1,3 +1,7 @@
+## 0.2.2
+
+ - **FEAT**: Add exception classes for YAML file format and MWC patterns not found. ([b2fa9caa](https://github.com/zoocityboy/melos_workspace_cleaner/commit/b2fa9caacd38db164fa9a579b6a839792e2635bb))
+
 ## 0.2.1
 
 ## 0.2.0
