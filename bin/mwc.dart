@@ -1,5 +1,5 @@
 import 'package:cli_launcher/cli_launcher.dart';
-import 'package:mwc/mwc.dart';
+import 'package:mwc/src/mwc.dart';
 
 /// A class that represents the MWC (Melos Workspace Cleaner) command.
 Future<void> main(List<String> arguments) async {
@@ -7,12 +7,13 @@ Future<void> main(List<String> arguments) async {
   return launchExecutable(
     arguments,
     LaunchConfig(
-      name: ExecutableName('mwc'),
+      name: ExecutableName(MwcConstants.cliName),
       launchFromSelf: false,
       entrypoint: (arguments, context) {
         return EntryPointClass(
           arguments: arguments,
           context: context,
+          runner: MwcRunner(),
         ).entrypoint();
       },
     ),

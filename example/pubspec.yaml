@@ -7,5 +7,4 @@ dependencies:
 
 dev_dependencies:
   melos: any
-  mwc: any
   zoo_lints: any

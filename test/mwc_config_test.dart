@@ -1,6 +1,5 @@
 import 'package:glob/glob.dart';
 import 'package:mason_logger/mason_logger.dart';
-import 'package:mocktail/mocktail.dart';
 import 'package:mwc/src/mwc.dart';
 import 'package:test/test.dart';
 
@@ -62,10 +61,8 @@ void main() {
     test(
         'should return default patterns if melos.yaml and mwc.yaml do not exist',
         () {
-      final melosFile = MockFile();
-      when(melosFile.existsSync).thenReturn(false);
-      final mwcFile = MockFile();
-      when(mwcFile.existsSync).thenReturn(false);
+      final melosFile = FakeMelosFile(isExists: false);
+      final mwcFile = FakeMwcFile(isExists: false);
 
       final config =
           MwcConfig.fromConfig(logger, melosFile: melosFile, mwcFile: mwcFile);
@@ -73,39 +70,37 @@ void main() {
     });
 
     test('should return patterns from mwc.yaml', () {
-      final mwcFile = MockFile();
-      when(mwcFile.existsSync).thenReturn(true);
-      when(mwcFile.readAsStringSync)
-          .thenReturn('mwc:\n  - "pattern1"\n  - "pattern2"\n');
-      final config = MwcConfig.parseYamlConfig(mwcFile);
+      final mwcFile =
+          FakeMwcFile(content: 'mwc:\n  - "pattern1"\n  - "pattern2"\n');
+      final logger = mockLogger();
+      final config = MwcConfig.parseYamlConfig(logger, mwcFile);
       expect(config, ['pattern1', 'pattern2']);
     });
 
     test('should return patterns from melos.yaml', () {
-      final melosFile = MockFile();
-      when(melosFile.existsSync).thenReturn(true);
-      when(melosFile.readAsStringSync)
-          .thenReturn('mwc:\n  - "pattern3"\n  - "pattern4"\n');
-      final config = MwcConfig.parseYamlConfig(melosFile);
+      final melosFile =
+          FakeMelosFile(content: 'mwc:\n  - "pattern3"\n  - "pattern4"\n');
+      final logger = mockLogger();
+      final config = MwcConfig.parseYamlConfig(logger, melosFile);
       expect(config, ['pattern3', 'pattern4']);
     });
 
     test('should throw exception for invalid yaml format', () {
-      final mwcFile = MockFile();
-      when(mwcFile.existsSync).thenReturn(true);
-      when(mwcFile.readAsStringSync).thenReturn('mwx: invalid');
+      final mwcFile = FakeMwcFile(
+        content: 'mwx: invalid"\n',
+      );
+      final logger = mockLogger();
       expect(
-        () => MwcConfig.parseYamlConfig(mwcFile),
+        () => MwcConfig.parseYamlConfig(logger, mwcFile),
         throwsA(isA<InvalidYamlFormatException>()),
       );
     });
 
     test('should throw exception for invalid yaml list format', () {
-      final mwcFile = MockFile();
-      when(mwcFile.existsSync).thenReturn(true);
-      when(mwcFile.readAsStringSync).thenReturn('mwc: pattern');
+      final mwcFile = FakeMwcFile(content: 'mwc: pattern');
+      final logger = mockLogger();
       expect(
-        () => MwcConfig.parseYamlConfig(mwcFile),
+        () => MwcConfig.parseYamlConfig(logger, mwcFile),
         throwsA(isA<InvalidYamlListFormatException>()),
       );
     });
@@ -113,18 +108,28 @@ void main() {
 
   group('Exceptions', () {
     test('InvalidYamlFormat', () {
-      const exception = InvalidYamlFormatException();
+      final file = FakeMwcFile();
+      final exception = InvalidYamlFormatException(file);
       expect(
         exception.toString(),
-        '${exception.runtimeType}: ${MwcStrings.invalidYamlFormat}',
+        '''
+${exception.runtimeType}: 
+- ${MwcStrings.invalidYamlFormat}
+- file: ${file.path}
+''',
       );
     });
 
     test('InvalidYamlListFormat', () {
-      const exception = InvalidYamlListFormatException();
+      final file = FakeMwcFile();
+      final exception = InvalidYamlListFormatException(file);
       expect(
         exception.toString(),
-        '${exception.runtimeType}: ${MwcStrings.invalidYamlListFormat}',
+        '''
+${exception.runtimeType}: 
+- ${MwcStrings.invalidYamlFormat}
+- file: ${file.path}
+''',
       );
     });
 

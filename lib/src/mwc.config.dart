@@ -10,6 +10,9 @@ class MwcConfig {
   /// If [patterns] is not provided, the default patterns defined in [MwcConstants.defaultPatterns]
   /// will be used.
   factory MwcConfig.manual(Logger logger, {List<String>? patterns}) {
+    logger
+      ..detail('mwc: [manual]')
+      ..detail('- patterns: $patterns');
     return MwcConfig._(
       logger: logger,
       patterns: patterns ?? MwcConstants.defaultPatterns,
@@ -30,9 +33,22 @@ class MwcConfig {
     required File melosFile,
     required File mwcFile,
   }) {
-    final patterns = MwcConfig.parseYamlConfig(mwcFile) ??
-        MwcConfig.parseYamlConfig(melosFile) ??
+    logger
+      ..detail('mwcc: [fromConfig]')
+      ..detail('Folder: ${Directory.current.path}')
+      ..detail(
+        'mwc.yaml: ${mwcFile.existsSync() ? '✔' : '✗'} - ${mwcFile.path.replaceAll(Directory.current.path, '')}',
+      )
+      ..detail(
+        'melos.yaml: ${melosFile.existsSync() ? '✔' : '✗'} - ${melosFile.path.replaceAll(Directory.current.path, '')}',
+      );
+
+    final patterns = MwcConfig.parseYamlConfig(logger, mwcFile) ??
+        MwcConfig.parseYamlConfig(logger, melosFile) ??
         MwcConstants.defaultPatterns;
+    logger
+      ..detail('patterns:')
+      ..detail(patterns.toString());
     return MwcConfig._(logger: logger, patterns: patterns);
   }
 
@@ -72,15 +88,22 @@ class MwcConfig {
   /// the list of patterns defined in the `mwc.yaml` file.
   /// If the YAML content is invalid or does not contain the expected structure,
   /// an exception is thrown.
-  static List<String>? parseYamlConfig(File yaml) {
+  static List<String>? parseYamlConfig(Logger logger, File yaml) {
+    logger.detail('- checking: ${yaml.path}');
     if (!yaml.existsSync()) return null;
+
     final yamlContent = loadYaml(yaml.readAsStringSync()) as YamlMap;
+    logger.detail('''
+content: 
+$yamlContent[MwcConstants.yamlListNode]
+''');
+
     if (!yamlContent.containsKey(MwcConstants.yamlListNode)) {
-      throw const InvalidYamlFormatException();
+      throw InvalidYamlFormatException(yaml);
     }
     final nodeContent = yamlContent[MwcConstants.yamlListNode];
     if (nodeContent is! YamlList) {
-      throw const InvalidYamlListFormatException();
+      throw InvalidYamlListFormatException(yaml);
     }
 
     return List<String>.from(nodeContent.value);
@@ -90,23 +113,35 @@ class MwcConfig {
 /// Exception thrown when the format of a YAML file is invalid.
 class InvalidYamlFormatException implements Exception {
   /// Creates a new instance of [InvalidYamlFormatException].
-  const InvalidYamlFormatException();
+  const InvalidYamlFormatException(this.file);
+
+  ///
+  final File file;
 
   /// Returns a string representation of the exception.
   @override
-  String toString() =>
-      'InvalidYamlFormatException: ${MwcStrings.invalidYamlFormat}';
+  String toString() => '''
+InvalidYamlFormatException: 
+- ${MwcStrings.invalidYamlFormat}
+- file: ${file.path}
+''';
 }
 
 /// Exception thrown when the format of a YAML list is invalid.
 class InvalidYamlListFormatException implements Exception {
   /// Creates a new instance of [InvalidYamlListFormatException].
-  const InvalidYamlListFormatException();
+  const InvalidYamlListFormatException(this.file);
+
+  ///
+  final File file;
 
   /// Returns a string representation of the exception.
   @override
-  String toString() =>
-      'InvalidYamlListFormatException: ${MwcStrings.invalidYamlListFormat}';
+  String toString() => '''
+InvalidYamlListFormatException: 
+- ${MwcStrings.invalidYamlFormat}
+- file: ${file.path}
+''';
 }
 
 /// Exception thrown when MWC patterns are not found.

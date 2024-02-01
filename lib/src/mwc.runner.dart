@@ -33,6 +33,7 @@ class MwcRunner {
       )
       ..addFlag(
         'version',
+        abbr: 'v',
         negatable: false,
         help: 'Print the current version.',
       )
@@ -53,13 +54,13 @@ class MwcRunner {
   factory MwcRunner.test({
     required File mwcFile,
     required File melosFile,
-    required PubUpdater pubUpdater,
+    PubUpdater? pubUpdater,
     Logger? logger,
   }) =>
       MwcRunner._(
         mwcFile: mwcFile,
         melosFile: melosFile,
-        pubUpdater: pubUpdater,
+        pubUpdater: pubUpdater ?? PubUpdater(),
         logger: logger ?? Logger(),
       );
 
@@ -120,8 +121,8 @@ class MwcRunner {
         logger.detail('Config fromConfig');
         config = MwcConfig.fromConfig(
           logger,
-          melosFile: mwcFile,
-          mwcFile: melosFile,
+          melosFile: melosFile,
+          mwcFile: mwcFile,
         );
       }
 
@@ -135,6 +136,7 @@ class MwcRunner {
       await cleaner.run();
     } catch (e) {
       logger.err(e.toString());
+      rethrow;
     }
   }
 

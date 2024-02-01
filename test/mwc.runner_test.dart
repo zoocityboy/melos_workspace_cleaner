@@ -4,18 +4,13 @@ import 'package:cli_launcher/cli_launcher.dart';
 import 'package:mason_logger/mason_logger.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:mwc/src/mwc.dart';
-import 'package:pub_updater/pub_updater.dart';
 import 'package:test/test.dart';
 
-import 'fixture/mwc_melos_yaml.dart';
 import 'mock.dart';
 
 void main() {
   late MwcRunner mwcRunner;
-  late Logger logger;
-
   setUp(() {
-    logger = MockLogger();
     mwcRunner = MockMwcRunner();
   });
 
@@ -53,32 +48,32 @@ void main() {
 
       test('should parse arguments and create MwcConfig manually', () async {
         final arguments = ['--patterns', 'pattern1,pattern2'];
-        final runner = MwcRunner();
+        final mwcFile = FakeMwcFile();
+        final melosFile = FakeMelosFile();
+        final runner = MwcRunner.test(
+          mwcFile: mwcFile,
+          melosFile: melosFile,
+        );
         await runner.run(arguments);
         // ignore: unused_local_variable
         MwcConfig config;
         verifyInOrder([
           () => runner.parser.parse(arguments),
-          () => runner.logger.detail('Config manual: pattern1,pattern2'),
+          () => runner.logger.detail('Config manual: {pattern1,pattern2}'),
           () => config =
-              MwcConfig.manual(logger, patterns: ['pattern1,pattern2']),
+              MwcConfig.manual(runner.logger, patterns: ['pattern1,pattern2']),
         ]);
       });
 
       test('should parse arguments and create MwcConfig from config files',
           () async {
-        final melosFile = testMelosConfigFile
-          ..createSync(recursive: true)
-          ..writeAsStringSync(melosYamlContent);
-        final mwcFile = testMwcConfigFile
-          ..createSync(recursive: true)
-          ..writeAsStringSync(mwcYamlContent);
+        final mwcFile = FakeMwcFile();
+        final melosFile = FakeMelosFile();
 
         final arguments = <String>['--verbose'];
         final runner = MwcRunner.test(
           melosFile: melosFile,
           mwcFile: mwcFile,
-          pubUpdater: PubUpdater(),
         );
         await runner.run(arguments);
         // ignore: unused_local_variable
@@ -87,7 +82,7 @@ void main() {
           () => runner.parser.parse(arguments),
           () => runner.logger.detail('Config fromConfig'),
           () => config = MwcConfig.fromConfig(
-                logger,
+                runner.logger,
                 melosFile: melosFile,
                 mwcFile: mwcFile,
               ),
@@ -96,13 +91,19 @@ void main() {
 
       test('should handle exception and print error message', () async {
         final arguments = <String>[];
-        final runner = MwcRunner();
-
-        await runner.run(arguments);
+        final brokeFile = FakeMelosFile(content: 'xxx:');
+        final runner = MwcRunner.test(
+          melosFile: brokeFile,
+          mwcFile: FakeMwcFile(isExists: false),
+        );
+        expect(
+          () => runner.run(arguments),
+          throwsA(isA<InvalidYamlFormatException>()),
+        );
         verifyInOrder([
           () => runner.parser.parse(arguments),
-          () =>
-              runner.logger.err(const InvalidYamlFormatException().toString()),
+          () => runner.logger
+              .err(InvalidYamlFormatException(brokeFile).toString()),
         ]);
       });
     });
