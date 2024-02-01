@@ -27,6 +27,7 @@ dependencies:
 
 dev_dependencies:
   coverage: ^1.7.2
+  husky: ^0.1.7
   logging: ^1.2.0
   melos: ^4.0.0
   mocktail: ^1.0.3

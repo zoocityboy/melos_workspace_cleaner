@@ -61,7 +61,7 @@ class MwcRunner {
         mwcFile: mwcFile,
         melosFile: melosFile,
         pubUpdater: pubUpdater ?? PubUpdater(),
-        logger: logger ?? Logger(),
+        logger: logger ?? Logger(level: Level.critical),
       );
 
   /// The logger used by this command.
@@ -87,11 +87,6 @@ class MwcRunner {
       logger = Logger(level: Level.verbose);
       logger
         ..detail('Results')
-        ..detail('name: ${results.name}')
-        ..detail('arguments: ${results.arguments}')
-        ..detail('command: ${results.command}')
-        ..detail('options: ${results.options}')
-        ..detail('rest: ${results.rest}')
         ..detail('------------------')
         ..detail('help[${results['help']}]')
         ..detail('verbose[${results['verbose']}]')

@@ -35,7 +35,7 @@ scripts:
       Run `dart format` in all packages.
     run: |
       melos exec -c 1 -- \
-        "dart format ."
+        "dart format --apply ."
   pana:
     description: |
       Run `dart analyze` in all packages.

@@ -22,7 +22,10 @@ void main() {
 
       test('should parse arguments and print usage information', () async {
         final arguments = ['--help'];
-        final runner = MwcRunner()..logger = Logger();
+        final runner = MwcRunner.test(
+          mwcFile: FakeMwcFile(),
+          melosFile: FakeMelosFile(),
+        );
         await runner.run(arguments);
 
         verifyInOrder([
@@ -38,7 +41,10 @@ void main() {
 
       test('should parse arguments and set logger level to verbose', () async {
         final arguments = ['--help', '--verbose'];
-        final runner = MwcRunner();
+        final runner = MwcRunner.test(
+          mwcFile: FakeMwcFile(),
+          melosFile: FakeMelosFile(),
+        );
         await runner.run(arguments);
         verifyInOrder([
           () => runner.parser.parse(arguments),
@@ -48,11 +54,9 @@ void main() {
 
       test('should parse arguments and create MwcConfig manually', () async {
         final arguments = ['--patterns', 'pattern1,pattern2'];
-        final mwcFile = FakeMwcFile();
-        final melosFile = FakeMelosFile();
         final runner = MwcRunner.test(
-          mwcFile: mwcFile,
-          melosFile: melosFile,
+          mwcFile: FakeMwcFile(),
+          melosFile: FakeMelosFile(),
         );
         await runner.run(arguments);
         // ignore: unused_local_variable
@@ -96,14 +100,52 @@ void main() {
           melosFile: brokeFile,
           mwcFile: FakeMwcFile(isExists: false),
         );
-        expect(
-          () => runner.run(arguments),
-          throwsA(isA<InvalidYamlFormatException>()),
-        );
         verifyInOrder([
           () => runner.parser.parse(arguments),
           () => runner.logger
               .err(InvalidYamlFormatException(brokeFile).toString()),
+        ]);
+      });
+
+      test(
+          'should return default patterns when: '
+          '1. mwc.yaml is missing '
+          '2. melos.yaml is invalid format '
+          '3. return default patterns', () async {
+        final arguments = <String>[];
+        final melosFileWrong = FakeMelosFile(content: 'xxx:');
+        final mwcFileWrong = FakeMelosFile(content: 'mwc: invalid content');
+        final runner = MwcRunner.test(
+          melosFile: melosFileWrong,
+          mwcFile: mwcFileWrong,
+        );
+        await runner.run(arguments);
+        verifyInOrder([
+          () => runner.parser.parse(arguments),
+          () => runner.logger
+              .err(InvalidYamlFormatException(mwcFileWrong).toString()),
+          () => runner.logger
+              .err(InvalidYamlListFormatException(melosFileWrong).toString()),
+        ]);
+      });
+      test(
+          'should return default patterns when: '
+          '1. mwc.yaml is missing '
+          '2. melos.yaml not missing mwc: '
+          '3. return default patterns', () async {
+        final arguments = <String>[];
+        final mwcFileWrong = FakeMelosFile(isExists: false);
+        final melosFileWrong = FakeMelosFile(content: 'xxx:');
+
+        final runner = MwcRunner.test(
+          melosFile: melosFileWrong,
+          mwcFile: mwcFileWrong,
+        );
+        await runner.run(arguments);
+        verifyInOrder([
+          () => runner.parser.parse(arguments),
+          () => runner.logger
+              .err(InvalidYamlListFormatException(melosFileWrong).toString()),
         ]);
       });
     });

@@ -35,21 +35,25 @@ class MwcConfig {
   }) {
     logger
       ..detail('mwcc: [fromConfig]')
-      ..detail('Folder: ${Directory.current.path}')
-      ..detail(
-        'mwc.yaml: ${mwcFile.existsSync() ? '✔' : '✗'} - ${mwcFile.path.replaceAll(Directory.current.path, '')}',
-      )
-      ..detail(
-        'melos.yaml: ${melosFile.existsSync() ? '✔' : '✗'} - ${melosFile.path.replaceAll(Directory.current.path, '')}',
-      );
+      ..detail('Folder: ${Directory.current.path}');
 
-    final patterns = MwcConfig.parseYamlConfig(logger, mwcFile) ??
-        MwcConfig.parseYamlConfig(logger, melosFile) ??
-        MwcConstants.defaultPatterns;
-    logger
-      ..detail('patterns:')
-      ..detail(patterns.toString());
-    return MwcConfig._(logger: logger, patterns: patterns);
+    List<String>? patterns;
+    try {
+      patterns = MwcConfig.parseYamlConfig(logger, mwcFile) ??
+          MwcConfig.parseYamlConfig(logger, melosFile);
+    } on InvalidYamlFormatException catch (e) {
+      logger
+        ..err(e.toString())
+        ..warn(MwcStrings.fallbackToDefaultPatterns);
+    } on InvalidYamlListFormatException catch (e) {
+      logger
+        ..err(e.toString())
+        ..warn(MwcStrings.fallbackToDefaultPatterns);
+    }
+    return MwcConfig._(
+      logger: logger,
+      patterns: patterns ?? MwcConstants.defaultPatterns,
+    );
   }
 
   /// Private constructor for [MwcConfig].
@@ -89,14 +93,12 @@ class MwcConfig {
   /// If the YAML content is invalid or does not contain the expected structure,
   /// an exception is thrown.
   static List<String>? parseYamlConfig(Logger logger, File yaml) {
-    logger.detail('- checking: ${yaml.path}');
+    logger.detail(
+      '${yaml.path.split(Platform.pathSeparator).last}: ${yaml.existsSync() ? '✔' : '✗'} - ${yaml.path.replaceAll(Directory.current.path, '')}',
+    );
     if (!yaml.existsSync()) return null;
 
     final yamlContent = loadYaml(yaml.readAsStringSync()) as YamlMap;
-    logger.detail('''
-content: 
-$yamlContent[MwcConstants.yamlListNode]
-''');
 
     if (!yamlContent.containsKey(MwcConstants.yamlListNode)) {
       throw InvalidYamlFormatException(yaml);

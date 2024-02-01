@@ -39,6 +39,9 @@ Invalid YAML list format.
   /// Error message for when patterns are not found.
   static String mwcPatternsNotFound = 'Patterns not found.';
 
+  /// Error message for when patterns are not found.
+  static String fallbackToDefaultPatterns = 'Falling back to default patterns';
+
   /// Label for the version information.
   static String mwcVersionLabel = 'version';
 
