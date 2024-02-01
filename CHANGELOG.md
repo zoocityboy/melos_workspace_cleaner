@@ -1,3 +1,7 @@
+## 0.2.3+1
+
+ - **DOCS**: ci badge link. ([0551a86a](https://github.com/zoocityboy/melos_workspace_cleaner/commit/0551a86aaf313605be4ae333e54a9fbc2041eb86))
+
 ## 0.2.2+2
 
  - **FIX**: fix test. ([6d2d6c93](https://github.com/zoocityboy/melos_workspace_cleaner/commit/6d2d6c9312e619f9f46186b4a13bfaf15e11189c))
